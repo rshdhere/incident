@@ -6,4 +6,4 @@ For build work, use the owning app's manifest, `bun.lock` and repository resourc
 
 Use the [deployment workflow](../skills/deploy/SKILL.md) for an authorized release or deployment plan.
 
-The [CI workflow](../../.github/workflows/ci.yml) verifies pull requests and pushes to main. The `.aws` directory holds authored practice fixtures. See the [exercise catalog](../../README.md#incident-exercises).
+The [CI workflow](../../.github/workflows/ci.yaml) verifies pull requests and pushes to main. The `.aws` directory holds authored practice fixtures. See the [exercise catalog](../../README.md#incident-exercises).

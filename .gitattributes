@@ -1,3 +1,11 @@
 # Preserve the upstream snapshots pinned in skills-lock.json, including Markdown hard breaks.
 .agents/skills/anatomy/** whitespace=-blank-at-eol,-blank-at-eof
 .agents/skills/vercel-react-best-practices/** whitespace=-blank-at-eol
+
+# Exclude skills, agent configuration and editor settings from GitHub language statistics.
+/.agents/** linguist-vendored
+/.claude/** linguist-vendored
+/.codex/** linguist-vendored
+/.vscode/** linguist-vendored
+/AGENTS.md linguist-vendored
+/skills-lock.json linguist-vendored

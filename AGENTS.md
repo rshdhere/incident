@@ -10,6 +10,8 @@ Build containers from the repository root. Keep every Dockerfile in `docker/` an
 
 Use the root [Taskfile](taskfile.yaml) for Go development. CI runs `task check` for formatting, golangci-lint and tests. Use `task --list` for focused commands and follow the compute policy below when choosing where to run them.
 
+Name all project-owned YAML files with the lowercase `.yaml` extension, including dotfiles and GitHub Actions workflows. Preserve upstream filenames in installed skills. Keep skills and agent configuration excluded from GitHub language statistics through [.gitattributes](.gitattributes).
+
 ## Find the right guidance
 
 - For workspace ownership, entry points and tools, see the [architecture](.agents/context/architecture.md), [tech stack](.agents/context/tech-stack.md) and [conventions](.agents/context/conventions.md).
