@@ -55,17 +55,23 @@ These additions adapt the request correlation, server lifecycle and OpenAPI publ
 
 To add an AWS exercise, register its authored JSON file in [the catalog](api/v1/services/catalog.go), include it in [the Dockerfile](../docker/api.Dockerfile) and [the root build-context allowlist](../.dockerignore), and extend the integration checks.
 
-## Verification
+## Development commands
 
-From the repository root:
+Install Task **3.50.0** and golangci-lint **2.11.4** to match CI. The check uses Go 1.26.x and a C compiler for the SQLite integration test. [Task installation](https://taskfile.dev/installation/) · [golangci-lint binary installation](https://golangci-lint.run/docs/welcome/install/local/)
 
-```sh
-go test ./packages/api/... ./tests/...
-go test ./tests/bench -run '^$' -bench BenchmarkScenarioDetail
-tests/e2e/catalog.sh http://127.0.0.1:8080
-```
+Run `task --list` from the repository root to discover the commands.
 
-Start the API before running the end-to-end check. The GORM integration test uses SQLite and requires CGO and a C compiler.
+| Command | What it does |
+| --- | --- |
+| `task run` / `task build` | Start the API or build `build/incident-api`. |
+| `task check` | Check formatting, run golangci-lint, then run the Go tests. CI uses this same command. |
+| `task fmt` / `task fmt:check` | Apply Go formatting and import grouping or report the diff. |
+| `task lint` / `task test` | Run the linter or the Go tests independently. |
+| `task bench` | Benchmark the catalog handlers and report allocations. |
+| `task e2e` | Exercise a running API. Set `BASE_URL` to override `http://127.0.0.1:8080`. |
+| `task tidy` | Update module metadata and verify downloaded dependency checksums. |
+
+The [Taskfile](../Taskfile.yml) and [linter configuration](../.golangci.yml) adapt Sriniously’s backend tooling to the root Go module and its test directories. [Upstream Taskfile](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/Taskfile.yml) · [Upstream lint configuration](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/.golangci.yml)
 
 ## Container
 

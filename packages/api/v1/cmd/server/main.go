@@ -62,7 +62,9 @@ func run(logger *slog.Logger) error {
 	drain, cancel := context.WithTimeout(context.Background(), cfg.shutdownTimeout)
 	defer cancel()
 	if err := server.Shutdown(drain); err != nil {
-		server.Close()
+		if closeErr := server.Close(); closeErr != nil {
+			return errors.Join(fmt.Errorf("drain HTTP requests: %w", err), fmt.Errorf("force close: %w", closeErr))
+		}
 		return fmt.Errorf("drain HTTP requests: %w", err)
 	}
 	if err := <-served; !errors.Is(err, http.ErrServerClosed) {

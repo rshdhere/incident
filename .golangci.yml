@@ -1,0 +1,28 @@
+version: "2"
+
+run:
+  timeout: 5m
+  modules-download-mode: readonly
+
+linters:
+  default: standard
+  enable:
+    - bodyclose
+    - durationcheck
+    - errorlint
+    - nolintlint
+    - rowserrcheck
+    - sloglint
+    - sqlclosecheck
+  settings:
+    errcheck:
+      check-type-assertions: true
+    nolintlint:
+      require-explanation: true
+      require-specific: true
+    sloglint:
+      key-naming-case: snake
+
+formatters:
+  enable:
+    - goimports

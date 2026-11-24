@@ -23,14 +23,21 @@ jobs:
         with:
           go-version: '1.26.x'
           cache: false
-      - name: Test the catalog against the authored scenarios
-        run: go test -mod=readonly ./packages/api/... ./tests/...
+      - uses: go-task/setup-task@a00fbb05ce67b35648be3c78cbc9fd85354c757e # v2
+        with:
+          version: '3.50.0'
+      - uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9
+        with:
+          version: v2.11.4
+          install-only: true
+      - name: Check Go formatting, lint and tests
+        run: task check
       - name: Exercise the packaged API
         run: |
           docker build -f docker/api.Dockerfile -t incident-api:ci .
           docker run -d --name catalog --read-only -p 127.0.0.1:8080:8080 incident-api:ci
           trap 'docker rm -f catalog' EXIT
-          tests/e2e/catalog.sh http://127.0.0.1:8080
+          task e2e
           docker cp catalog:/incident-api "$RUNNER_TEMP/incident-api"
           python3 tests/e2e/server_lifecycle.py "$RUNNER_TEMP/incident-api"
 

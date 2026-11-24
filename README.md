@@ -12,6 +12,8 @@ Claude Code loads the same guidance through [.claude/CLAUDE.md](.claude/CLAUDE.m
 
 ## Backend and infrastructure
 
+Run `task --list` from the root to see the Go development commands. `task check` runs the same formatting, lint and test checks as CI. [Backend tooling and setup](packages/README.md#development-commands)
+
 Start the catalog API from the repo root with `go run ./packages/api/v1/cmd/server`. Visit `http://localhost:8080/api/v1/scenarios` for the exercise list. See the [packages guide](packages/README.md) for the evidence and debrief routes, test command and container build.
 
 The [Helm chart](helm/README.md) deploys the API to Kubernetes. The [Terraform configuration](infra/README.md) can manage that chart on an existing cluster. The [Vault lab](vault/README.md) demonstrates a reader policy using a disposable local server.

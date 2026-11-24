@@ -1,0 +1,66 @@
+version: '3'
+
+vars:
+  GO_PACKAGES: ./packages/api/... ./tests/...
+  SERVER: ./packages/api/v1/cmd/server
+
+tasks:
+  default:
+    aliases: [help]
+    desc: List available tasks
+    silent: true
+    cmds:
+      - task --list
+
+  run:
+    desc: Start the incident API
+    cmds:
+      - go run -mod=readonly {{.SERVER}}
+
+  build:
+    desc: Build the API executable at build/incident-api
+    cmds:
+      - go build -mod=readonly -o build/incident-api {{.SERVER}}
+
+  test:
+    desc: Run the Go tests
+    cmds:
+      - go test -mod=readonly {{.GO_PACKAGES}}
+
+  bench:
+    desc: Benchmark the catalog handlers
+    cmds:
+      - go test -mod=readonly -run '^$' -bench . -benchmem ./tests/bench
+
+  e2e:
+    desc: Check the running API at BASE_URL (defaults to http://127.0.0.1:8080)
+    cmds:
+      - tests/e2e/catalog.sh "${BASE_URL:-http://127.0.0.1:8080}"
+
+  lint:
+    desc: Lint the Go backend and tests
+    cmds:
+      - golangci-lint run {{.GO_PACKAGES}}
+
+  fmt:
+    desc: Format the Go backend and tests
+    cmds:
+      - golangci-lint fmt {{.GO_PACKAGES}}
+
+  fmt:check:
+    desc: Check Go formatting and print any differences
+    cmds:
+      - golangci-lint fmt --diff {{.GO_PACKAGES}}
+
+  tidy:
+    desc: Tidy module dependencies and verify their checksums
+    cmds:
+      - go mod tidy
+      - go mod verify
+
+  check:
+    desc: Check Go formatting, lint and tests
+    cmds:
+      - task: fmt:check
+      - task: lint
+      - task: test

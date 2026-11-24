@@ -6,4 +6,6 @@ Read the [OpenAPI contract](../../packages/api/v1/openapi.json) for response fie
 
 For the first canvas, start at `apps/web/app/page.tsx`, present the AWS evidence, and exercise both reads using the [feature workflow](../skills/implement-feature/SKILL.md). The API works directly from AWS fixtures. The optional [GORM model](../../packages/api/v1/persistence) provides a starting point for saving learner attempts when that feature is requested.
 
+Use `task --list` for the backend commands. The catalog CI job runs `task check` for formatting, lint and tests.
+
 Start the API with `go run ./packages/api/v1/cmd/server` from the root. See the [testing rules](../rules/testing.md) for the root suites and the [infrastructure guide](../rules/infrastructure.md) for container build paths.

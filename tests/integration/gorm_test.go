@@ -18,7 +18,11 @@ func TestAttemptMigration(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	t.Cleanup(func() { sqlDB.Close() })
+	t.Cleanup(func() {
+		if err := sqlDB.Close(); err != nil {
+			t.Errorf("close test database: %v", err)
+		}
+	})
 
 	if err := persistence.Migrate(db); err != nil {
 		t.Fatal(err)
