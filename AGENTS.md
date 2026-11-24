@@ -8,7 +8,7 @@ Implement active endpoints under `packages/api/v1` and expose them at `/api/v1`.
 
 Build containers from the repository root. Keep every Dockerfile in `docker/` and maintain one root `.dockerignore`. Put integration tests in `tests/integration/`, end-to-end tests in `tests/e2e/` and benchmarks in `tests/bench/`. Run Go commands from the root module. See the [API guide](packages/README.md).
 
-Use the root [Taskfile](Taskfile.yml) for Go development. CI runs `task check` for formatting, golangci-lint and tests. Use `task --list` for focused commands and follow the compute policy below when choosing where to run them.
+Use the root [Taskfile](taskfile.yaml) for Go development. CI runs `task check` for formatting, golangci-lint and tests. Use `task --list` for focused commands and follow the compute policy below when choosing where to run them.
 
 ## Find the right guidance
 

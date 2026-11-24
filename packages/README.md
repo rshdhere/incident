@@ -71,7 +71,7 @@ Run `task --list` from the repository root to discover the commands.
 | `task e2e` | Exercise a running API. Set `BASE_URL` to override `http://127.0.0.1:8080`. |
 | `task tidy` | Update module metadata and verify downloaded dependency checksums. |
 
-The [Taskfile](../Taskfile.yml) and [linter configuration](../.golangci.yml) adapt Sriniously’s backend tooling to the root Go module and its test directories. [Upstream Taskfile](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/Taskfile.yml) · [Upstream lint configuration](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/.golangci.yml)
+The [Taskfile](../taskfile.yaml) and [linter configuration](../.golangci.yml) adapt Sriniously’s backend tooling to the root Go module and its test directories. [Upstream Taskfile](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/Taskfile.yml) · [Upstream lint configuration](https://github.com/sriniously/go-boilerplate/blob/ff3656aa83c74d037a10d52bd41b2b2fa171c310/apps/backend/.golangci.yml)
 
 ## Container
 
