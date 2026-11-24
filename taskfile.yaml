@@ -12,6 +12,11 @@ tasks:
     cmds:
       - task --list
 
+  dev:
+    desc: Start the website and Go API together
+    cmds:
+      - bash scripts/dev.sh
+
   run:
     desc: Start the incident API
     cmds:
