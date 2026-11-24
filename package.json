@@ -2,6 +2,7 @@
   "name": "incident",
   "private": true,
   "scripts": {
+    "prepare": "husky",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
@@ -9,6 +10,7 @@
     "check-types": "turbo run check-types"
   },
   "devDependencies": {
+    "husky": "9.1.7",
     "prettier": "3.9.6",
     "turbo": "^2.11.13",
     "typescript": "7.0.2"
@@ -24,6 +26,7 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "tooling/*"
   ]
 }

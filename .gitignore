@@ -36,3 +36,22 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Local provider identities and CLI state
+/.aws/credentials
+/.aws/config
+/.aws/cli/
+/.aws/sso/
+/.azure/*.bin
+/.azure/azureProfile.json
+/.azure/accessTokens.json
+/.azure/msal_token_cache*
+/.azure/service_principal_entries*
+/.gcp/*.db*
+/.gcp/application_default_credentials.json
+/.gcp/legacy_credentials/
+/.k8s/config
+/.k8s/*.kubeconfig
+
+# Per-user Claude Code settings
+/.claude/settings.local.json

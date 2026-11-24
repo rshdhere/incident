@@ -1,4 +1,27 @@
-# Turborepo starter
+# Incident
+
+An engineering interview practice site for AWS, Kubernetes, DevOps and backend incidents. The planned experience pairs a scenario library with a guided investigation canvas. The current codebase is a Bun workspace with a Next.js starter in `apps/web`.
+
+## Working in this repo
+
+Start with [AGENTS.md](AGENTS.md) for project context, workflows and resource limits. See the [current handoff](.agents/state/handoff.md) for the next product task and the [workspace map](.agents/context/architecture.md) for source locations. Run `bun run dev` from `apps/web` to serve the learner app on port 3000.
+
+From the repo root, run `bun install --frozen-lockfile` with Bun 1.2.3 and Node.js 24+. The prepare script activates [Husky's pre-commit hook](.husky/pre-commit). It checks staged changes for whitespace errors and conflict markers with `git diff --cached --check`. The [GitHub workflow](.github/workflows) handles workspace checks.
+
+Claude Code loads the same guidance through [.claude/CLAUDE.md](.claude/CLAUDE.md). Its skills, rules, context, templates and state link to the shared project files.
+
+## Incident exercises
+
+Each directory contains synthetic evidence and a facilitator's worked response. Open a brief to practice an investigation without a cloud account.
+
+| Platform | Exercise |
+| --- | --- |
+| AWS | [Trace an SQS backlog](.aws/README.md) |
+| Azure | [Explain Service Bus dead-lettering](.azure/README.md) |
+| Google Cloud | [Investigate Cloud Run 429 responses](.gcp/README.md) |
+| Kubernetes | [Diagnose worker restarts after a rollout](.k8s/README.md) |
+
+## Starter reference
 
 This Turborepo starter is maintained by the Turborepo core team.
 

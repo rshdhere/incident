@@ -1,0 +1,28 @@
+{
+  "id": "worker-restarts",
+  "title": "A worker keeps restarting after a rollout",
+  "brief": "At 09:10 UTC a thumbnail worker stops completing large jobs after a rollout. The new worker pod has restarted four times.",
+  "question": "Which evidence explains the restarts, and how would you test whether your change restored processing?",
+  "evidence": [
+    {
+      "time": "09:00Z",
+      "source": "Deployment revision diff",
+      "observation": "The worker uses the same image in revisions 7 and 8. Its container memory limit changed from 512Mi to 128Mi."
+    },
+    {
+      "time": "09:07Z",
+      "source": "Historical working set",
+      "observation": "Under a comparable large job, revision 7 reached 196 MiB. Revision 8 grows to 126 MiB immediately before its last metrics sample."
+    },
+    {
+      "time": "09:10Z",
+      "source": "Pod status snapshot",
+      "observation": "The worker container has state.waiting.reason=CrashLoopBackOff, lastState.terminated.reason=OOMKilled, exitCode=137 and restartCount=4. Node memory pressure is false."
+    }
+  ],
+  "workedResponse": {
+    "diagnosis": "The revised limit is below the observed memory demand of a large job. The container termination reason and change history support memory exhaustion as the cause of the restart loop.",
+    "mitigation": "Check available node capacity and restore the known working limit for one worker. Run a representative large job before rolling the change out.",
+    "recovery": "Verify a large job completes, restarts stop increasing across repeated large jobs, and queue age falls as the worker drains its backlog."
+  }
+}

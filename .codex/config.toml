@@ -1,0 +1,3 @@
+# Roles live in .codex/agents and inherit the parent session's model and permissions.
+[agents]
+enabled = true

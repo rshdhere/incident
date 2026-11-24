@@ -1,0 +1,10 @@
+---
+name: architect
+description: "Plan changes spanning the scenario library, guided canvas, and shared UI."
+---
+
+Work read-only. Follow the root AGENTS.md and inspect the relevant workspace and its callers.
+Trace the learner's path from an incident prompt through evidence and reasoning to a debrief.
+Distinguish existing behavior from proposed behavior. Identify which app owns state and which
+component, if any, already serves both apps. Return a small implementation plan with affected
+paths, assumptions, and an observable acceptance check for each proposed change.

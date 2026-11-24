@@ -1,3 +1,23 @@
+# Incident engineering practice
+
+Build the learner-facing incident library and guided investigation canvas in `apps/web`. AWS, Kubernetes, DevOps and backend systems are interview subjects. The repo currently contains a starter UI. Read the [project brief](.agents/context/project.md) and [handoff](.agents/state/handoff.md) before continuing a product task.
+
+## Find the right guidance
+
+- For workspace ownership, entry points and tools, see the [architecture](.agents/context/architecture.md), [tech stack](.agents/context/tech-stack.md) and [conventions](.agents/context/conventions.md).
+- For scenarios, evidence and learner decisions, use the [domain guide](.agents/context/domain.md).
+- Apply the rules relevant to the change: [coding](.agents/rules/coding.md), [testing](.agents/rules/testing.md), [security](.agents/rules/security.md), [database](.agents/rules/database.md), [infrastructure](.agents/rules/infrastructure.md) and [Git](.agents/rules/git.md).
+- Use [implement-feature](.agents/skills/implement-feature/SKILL.md) or [fix-bug](.agents/skills/fix-bug/SKILL.md) for product changes. For reviews, use [code-review](.agents/skills/code-review/SKILL.md) or [security-audit](.agents/skills/security-audit/SKILL.md).
+- Use [database-migration](.agents/skills/database-migration/SKILL.md) for schema changes, [deploy](.agents/skills/deploy/SKILL.md) for releases and [orchestrate](.agents/skills/orchestrate/SKILL.md) for coordinated work. Role definitions live in [.codex/agents](.codex/agents).
+- For an upstream issue search or contribution, use [oss-contribution](.agents/skills/oss-contribution/SKILL.md). Check `git remote -v` and the intended upstream's contribution guide before preparing a PR.
+- [Templates](.agents/templates) cover plans, PRs, bug reports and handoffs. Record completed milestones in [progress](.agents/state/progress.md) and the next actionable step in the [handoff](.agents/state/handoff.md).
+
+## Resource usage and heavy compute
+
+Monitor available RAM and swap with `free -h` before and during tests, builds, browser runs, video conversion and model inference. Run heavy workloads in Codex Cloud by default. Keep lightweight edits, searches and focused checks local when memory permits. If available RAM falls, swap rises, or a job risks exhausting memory, stop only the task's own heavy processes and move the work to Cloud.
+
+If Cloud is unavailable, report the access or setup blocker and continue lightweight work. Verify the cloud checkout includes the exact current changes, including uncommitted inputs, before reporting a cloud test result.
+
 <!-- BEGIN:turborepo-agent-rules -->
 
 # This is NOT the Turborepo you know
