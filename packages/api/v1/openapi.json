@@ -1,0 +1,194 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Incident practice API",
+    "version": "1.0.0",
+    "description": "Read AWS interview exercises, inspect incident evidence and compare your reasoning with a worked response."
+  },
+  "paths": {
+    "/healthz": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Check whether the catalog is serving",
+        "parameters": [{ "$ref": "#/components/parameters/RequestID" }],
+        "responses": {
+          "200": {
+            "description": "The catalog is ready to serve requests.",
+            "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Health" } }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios": {
+      "get": {
+        "operationId": "listScenarios",
+        "summary": "List available exercises in scenario ID order",
+        "parameters": [{ "$ref": "#/components/parameters/RequestID" }],
+        "responses": {
+          "200": {
+            "description": "An array of exercise summaries.",
+            "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Summary" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/scenarios/{id}": {
+      "get": {
+        "operationId": "getExercise",
+        "summary": "Read an incident brief, investigation question and evidence",
+        "parameters": [
+          { "$ref": "#/components/parameters/ScenarioID" },
+          { "$ref": "#/components/parameters/RequestID" }
+        ],
+        "responses": {
+          "200": {
+            "description": "The materials for the learner's investigation.",
+            "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Exercise" } }
+            }
+          },
+          "404": { "$ref": "#/components/responses/UnknownScenario" }
+        }
+      }
+    },
+    "/api/v1/scenarios/{id}/debrief": {
+      "get": {
+        "operationId": "getDebrief",
+        "summary": "Retrieve the worked diagnosis, mitigation and recovery check",
+        "parameters": [
+          { "$ref": "#/components/parameters/ScenarioID" },
+          { "$ref": "#/components/parameters/RequestID" }
+        ],
+        "responses": {
+          "200": {
+            "description": "The facilitator's worked response.",
+            "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Debrief" } }
+            }
+          },
+          "404": { "$ref": "#/components/responses/UnknownScenario" }
+        }
+      }
+    },
+    "/api/v1/openapi.json": {
+      "get": {
+        "operationId": "getOpenAPI",
+        "summary": "Retrieve the v1 OpenAPI document",
+        "parameters": [{ "$ref": "#/components/parameters/RequestID" }],
+        "responses": {
+          "200": {
+            "description": "The machine-readable API contract.",
+            "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+            "content": {
+              "application/json": { "schema": { "type": "object" } }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "ScenarioID": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "Scenario identifier from the catalog listing.",
+        "schema": { "type": "string" },
+        "example": "sqs-backlog"
+      },
+      "RequestID": {
+        "name": "X-Request-ID",
+        "in": "header",
+        "description": "Optional correlation ID. Supply one value with 1 to 64 letters, digits, periods, underscores or hyphens. The service generates an ID when a usable value is absent.",
+        "schema": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,64}$" }
+      }
+    },
+    "headers": {
+      "RequestID": {
+        "description": "Correlation ID for locating the request in the service logs.",
+        "required": true,
+        "schema": { "type": "string", "pattern": "^[A-Za-z0-9._-]{1,64}$" }
+      }
+    },
+    "responses": {
+      "UnknownScenario": {
+        "description": "The requested ID is absent from the catalog.",
+        "headers": { "X-Request-ID": { "$ref": "#/components/headers/RequestID" } },
+        "content": {
+          "application/json": { "schema": { "$ref": "#/components/schemas/Error" } }
+        }
+      }
+    },
+    "schemas": {
+      "Summary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "platform"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "platform": { "type": "string", "enum": ["aws"] }
+        }
+      },
+      "Exercise": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "title", "platform", "brief", "question", "evidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "platform": { "type": "string", "enum": ["aws"] },
+          "brief": { "type": "string" },
+          "question": { "type": "string" },
+          "evidence": { "type": "array", "items": { "$ref": "#/components/schemas/Evidence" } }
+        }
+      },
+      "Evidence": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["time", "source", "observation"],
+        "properties": {
+          "time": { "type": "string", "example": "10:05Z" },
+          "source": { "type": "string" },
+          "observation": { "type": "string" }
+        }
+      },
+      "Debrief": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["diagnosis", "mitigation", "recovery"],
+        "properties": {
+          "diagnosis": { "type": "string" },
+          "mitigation": { "type": "string" },
+          "recovery": { "type": "string" }
+        }
+      },
+      "Health": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["status"],
+        "properties": { "status": { "type": "string", "enum": ["ok"] } }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["error"],
+        "properties": { "error": { "type": "string" } }
+      }
+    }
+  }
+}

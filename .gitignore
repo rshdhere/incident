@@ -42,16 +42,9 @@ yarn-error.log*
 /.aws/config
 /.aws/cli/
 /.aws/sso/
-/.azure/*.bin
-/.azure/azureProfile.json
-/.azure/accessTokens.json
-/.azure/msal_token_cache*
-/.azure/service_principal_entries*
-/.gcp/*.db*
-/.gcp/application_default_credentials.json
-/.gcp/legacy_credentials/
-/.k8s/config
-/.k8s/*.kubeconfig
+/.azure/
+/.gcp/
+/.k8s/
 
 # Per-user Claude Code settings
 /.claude/settings.local.json

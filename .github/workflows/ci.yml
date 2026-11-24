@@ -13,6 +13,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6
+        with:
+          go-version: '1.26.x'
+          cache: false
+      - name: Test the catalog against the authored scenarios
+        run: go test -mod=readonly ./packages/api/... ./tests/...
+      - name: Exercise the packaged API
+        run: |
+          docker build -f docker/api.Dockerfile -t incident-api:ci .
+          docker run -d --name catalog --read-only -p 127.0.0.1:8080:8080 incident-api:ci
+          trap 'docker rm -f catalog' EXIT
+          tests/e2e/catalog.sh http://127.0.0.1:8080
+          docker cp catalog:/incident-api "$RUNNER_TEMP/incident-api"
+          python3 tests/e2e/server_lifecycle.py "$RUNNER_TEMP/incident-api"
+
   check:
     runs-on: ubuntu-latest
     env:

@@ -1,0 +1,13 @@
+replicaCount: 1
+
+image:
+  repository: incident-api
+  tag: dev
+  pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    cpu: 25m
+    memory: 16Mi
+  limits:
+    memory: 64Mi

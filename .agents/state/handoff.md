@@ -1,9 +1,9 @@
 # Current handoff
 
-The learner app in `apps/web` still renders the Turborepo starter. The project setup establishes shared agent guidance for the first product task.
+The web app still renders the starter. The [v1 API](../../packages/README.md) serves the [AWS SQS backlog exercise](../../.aws/sqs-backlog.json). Fetch `/api/v1/scenarios/sqs-backlog` for its brief and evidence. Fetch `/api/v1/scenarios/sqs-backlog/debrief` when the learner requests the diagnosis.
 
-## Suggested first slice
+Read the [OpenAPI contract](../../packages/api/v1/openapi.json) for response fields, or fetch it from the running API at `/api/v1/openapi.json`. Use a response’s `X-Request-ID` to locate its entry in the server log.
 
-When implementation is requested, use the [feature workflow](../skills/implement-feature/SKILL.md) to take one authored incident through the canvas. Use the existing [Kubernetes worker restart exercise](../../.k8s/worker-restarts.json). Present its brief, let the learner inspect the evidence and explain a diagnosis, then reveal the worked response.
+For the first canvas, start at `apps/web/app/page.tsx`, present the AWS evidence, and exercise both reads using the [feature workflow](../skills/implement-feature/SKILL.md). The API works directly from AWS fixtures. The optional [GORM model](../../packages/api/v1/persistence) provides a starting point for saving learner attempts when that feature is requested.
 
-Start at `apps/web/app/page.tsx`. Agree on the steps and evidence for the first scenario before generalizing the UI. Persistence, scoring and deployment are open design choices. See the [testing rules](../rules/testing.md) when selecting checks.
+Start the API with `go run ./packages/api/v1/cmd/server` from the root. See the [testing rules](../rules/testing.md) for the root suites and the [infrastructure guide](../rules/infrastructure.md) for container build paths.

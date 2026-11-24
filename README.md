@@ -1,6 +1,6 @@
 # Incident
 
-An engineering interview practice site for AWS, Kubernetes, DevOps and backend incidents. The planned experience pairs a scenario library with a guided investigation canvas. The current codebase is a Bun workspace with a Next.js starter in `apps/web`.
+An engineering interview practice site for engineers investigating AWS incidents. The planned experience pairs a scenario library with a guided investigation canvas. The current codebase is a Bun workspace with a Next.js starter in `apps/web`.
 
 ## Working in this repo
 
@@ -10,16 +10,15 @@ From the repo root, run `bun install --frozen-lockfile` with Bun 1.2.3 and Node.
 
 Claude Code loads the same guidance through [.claude/CLAUDE.md](.claude/CLAUDE.md). Its skills, rules, context, templates and state link to the shared project files.
 
+## Backend and infrastructure
+
+Start the catalog API from the repo root with `go run ./packages/api/v1/cmd/server`. Visit `http://localhost:8080/api/v1/scenarios` for the exercise list. See the [packages guide](packages/README.md) for the evidence and debrief routes, test command and container build.
+
+The [Helm chart](helm/README.md) deploys the API to Kubernetes. The [Terraform configuration](infra/README.md) can manage that chart on an existing cluster. The [Vault lab](vault/README.md) demonstrates a reader policy using a disposable local server.
+
 ## Incident exercises
 
-Each directory contains synthetic evidence and a facilitator's worked response. Open a brief to practice an investigation without a cloud account.
-
-| Platform | Exercise |
-| --- | --- |
-| AWS | [Trace an SQS backlog](.aws/README.md) |
-| Azure | [Explain Service Bus dead-lettering](.azure/README.md) |
-| Google Cloud | [Investigate Cloud Run 429 responses](.gcp/README.md) |
-| Kubernetes | [Diagnose worker restarts after a rollout](.k8s/README.md) |
+The [AWS SQS backlog exercise](.aws/README.md) includes a facilitator guide, a timeline of synthetic evidence and a worked diagnosis. The API serves the brief and evidence first. The debrief endpoint reveals the diagnosis on request.
 
 ## Starter reference
 

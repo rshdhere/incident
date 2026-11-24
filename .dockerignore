@@ -1,0 +1,11 @@
+**
+!go.mod
+!go.sum
+!packages/api/v1/*.go
+!packages/api/v1/openapi.json
+!packages/api/v1/cmd/server/*.go
+!packages/api/v1/events/*.go
+!packages/api/v1/services/*.go
+!packages/api/v1/types/*.go
+!packages/api/v1/validators/*.go
+!.aws/sqs-backlog.json

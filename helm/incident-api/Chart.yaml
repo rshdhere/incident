@@ -1,0 +1,5 @@
+apiVersion: v2
+name: incident-api
+description: Serve the incident practice catalog and guided exercises.
+type: application
+version: 0.1.0

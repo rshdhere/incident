@@ -1,0 +1,16 @@
+@baseUrl = http://localhost:8080
+
+### Read the API contract for this release
+GET {{baseUrl}}/api/v1/openapi.json
+
+### Confirm the catalog loaded
+GET {{baseUrl}}/healthz
+
+### Choose an incident
+GET {{baseUrl}}/api/v1/scenarios
+
+### Inspect the brief and evidence
+GET {{baseUrl}}/api/v1/scenarios/sqs-backlog
+
+### Compare your diagnosis with the worked response
+GET {{baseUrl}}/api/v1/scenarios/sqs-backlog/debrief

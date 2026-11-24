@@ -1,6 +1,12 @@
 # Incident engineering practice
 
-Build the learner-facing incident library and guided investigation canvas in `apps/web`. AWS, Kubernetes, DevOps and backend systems are interview subjects. The repo currently contains a starter UI. Read the [project brief](.agents/context/project.md) and [handoff](.agents/state/handoff.md) before continuing a product task.
+Build the learner-facing incident library and guided investigation canvas in `apps/web`. The current practice catalog focuses on AWS incidents for DevOps and backend interviews. The repo currently contains a starter UI. Read the [project brief](.agents/context/project.md) and [handoff](.agents/state/handoff.md) before continuing a product task.
+
+## Backend layout
+
+Implement active endpoints under `packages/api/v1` and expose them at `/api/v1`. Keep v2 work in `packages/api/v2`. Use GORM for Go persistence. Keep shared React components in `packages/ui` and authored AWS exercises under `.aws`.
+
+Build containers from the repository root. Keep every Dockerfile in `docker/` and maintain one root `.dockerignore`. Put integration tests in `tests/integration/`, end-to-end tests in `tests/e2e/` and benchmarks in `tests/bench/`. Run Go commands from the root module. See the [API guide](packages/README.md).
 
 ## Find the right guidance
 
